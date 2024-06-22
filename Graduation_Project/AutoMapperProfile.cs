@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Graduation_Project.DTO.AdminDto;
 using Graduation_Project.DTO.ClientDto;
+using Graduation_Project.DTO.PaymentDto;
 using Graduation_Project.DTO.SparePartsDto;
 using Graduation_Project.DTO.WorkerDto;
 using Graduation_Project.Models;
+using System.Threading.Channels;
 
 namespace Graduation_Project
 {
@@ -20,6 +22,7 @@ namespace Graduation_Project
 
             CreateMap<Worker, AddWorkerDto>().ReverseMap(); 
             CreateMap<SpareParts,SparePartsDto>().ReverseMap();
+           // CreateMap<Payment,PaymentDto>().ReverseMap();
             
         }
     }

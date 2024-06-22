@@ -1,6 +1,7 @@
 ﻿using Graduation_Project.DTO.WorkerDto;
 using Graduation_Project.Models;
 using Graduation_Project.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace Graduation_Project.Controllers
         {
                 _workerRepository = worker;
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddWorker")]
         public IActionResult AddWorker([FromForm]AddWorkerDto worker)
         {
@@ -27,6 +29,7 @@ namespace Graduation_Project.Controllers
         }
         //logIn as a worker
         //edit worker profile
+        [Authorize(Roles = "Admin,Worker")]
         [HttpPut("EditWorker")]
         public IActionResult EditWorker(int id, [FromForm] EditWorkerDto worker)
         {
@@ -38,6 +41,7 @@ namespace Graduation_Project.Controllers
             return BadRequest(ModelState);
         }
         //get all workers
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAllWorkers")]
         public IActionResult GetAllWorkers() 
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Graduation_Project.DTO.ClientDto;
 using Graduation_Project.DTO.LogInDto;
+using Graduation_Project.DTO.PasswordDto;
 using Graduation_Project.Models;
 using Graduation_Project.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -21,22 +22,32 @@ namespace Graduation_Project.Repository
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration config;
         private readonly ILogger<ClientRepository> _logger;
+       // private readonly IAuthRepository _authRepository;
         public ClientRepository(Context context,IMapper _mapper,UserManager<ApplicationUser>_userManager,
-            IConfiguration config, ILogger<ClientRepository> _logger)
+            IConfiguration config, ILogger<ClientRepository> _logger)//, IAuthRepository _authRepository)
         {
             this.context = context;
             this._mapper = _mapper;
             this._userManager = _userManager;
             this.config = config;
             this._logger = _logger;
+           // this._authRepository = _authRepository;
         }
         //register
 
-        public async Task<IdentityResult> Add(ClientRegisterDTO _client)
+        public async Task<IdentityResult> Register(ClientRegisterDTO _client)
         {
             //Client client = _mapper.Map<Client>(_client);
             //context.Clients.Add(client);
             //context.SaveChanges();
+            //check if email is found 
+            if (await _userManager.FindByEmailAsync(_client.Email) !=null) {
+                return IdentityResult.Failed(new IdentityError { Description = "email is already registered" });
+            }
+            if (await _userManager.FindByNameAsync(_client.FName) != null&& await _userManager.FindByNameAsync(_client.LName) != null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Username is already registered!" });
+            }
             ApplicationUser user = new ApplicationUser
             {
                 UserName = _client.Email,
@@ -55,10 +66,12 @@ namespace Graduation_Project.Repository
                 LName = _client.LName,
                 Phone = _client.Phone,
                 Email = _client.Email
+
                 };
                 context.Clients.Add(client);
                 await context.SaveChangesAsync();
             }
+          //  await _userManager.AddToRoleAsync(user, "Client");//Role
             return result;
             
             
@@ -95,6 +108,7 @@ namespace Graduation_Project.Repository
                     _claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
                     //jit ==>jwt id
                     _claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+                    _claims.Add(new Claim(ClaimTypes.Role, ("Client")));
                     //get role
                     var roles =await _userManager.GetRolesAsync(user);
                     foreach(var roleItem in roles)
@@ -122,16 +136,27 @@ namespace Graduation_Project.Repository
                 else
                 {
                     _logger.LogWarning("Invalid password for user {Email}", _userDto.Email);
-                    return null;
+                    return "Invalid password";
                 }
             }
             else
             {
                 _logger.LogWarning("No user found with email {Email}", _userDto.Email);
+                return "Email not found";
+            }
+            
+
+
+        }
+        public async Task<IdentityResult> ChangePassword(ChangePassword changePassword)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(changePassword.Email);
+            if (user != null)
+            {
+                var result = await _userManager.ChangePasswordAsync(user, changePassword.OldPassword, changePassword.NewPassword);
+                return result;
             }
             return null;
-
-
         }
 
     }

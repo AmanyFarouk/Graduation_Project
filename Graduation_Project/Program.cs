@@ -13,12 +13,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Graduation_Project.Helpers;
 
 namespace Graduation_Project
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             var builder = WebApplication.CreateBuilder(args);
@@ -30,13 +31,6 @@ namespace Graduation_Project
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
-
-            /*
-             * builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<Context>();
-    
-
-             */
             //====================
             //Authorize  used jwt token on authorization
             builder.Services.AddAuthentication(options =>
@@ -50,12 +44,12 @@ namespace Graduation_Project
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-            //        ValidateIssuerSigningKey = true,
-            //        ValidateLifetime = true,
+                    ValidateLifetime = true,
                     ValidateIssuer = true,
                     ValidIssuer =builder.Configuration["JWT:ValidIssuer"],
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["JWT:ValidAudiance"],
+                    ValidateIssuerSigningKey = true,
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
                     (builder.Configuration["JWT:Key"])) 
             //        ClockSkew = TimeSpan.Zero
@@ -66,10 +60,14 @@ namespace Graduation_Project
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+                options.AddPolicy("ClientPolicy", policy => policy.RequireRole("Client"));
                 options.AddPolicy("WorkerPolicy", policy => policy.RequireRole("Worker"));
             });
-            // To Enable authorization using Swagger (JWT)    
+            //========================================
+            // To Enable authorization using Swagger (JWT)  
+            // ==========================
+
+            //==========================
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -135,6 +133,21 @@ namespace Graduation_Project
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
             var app = builder.Build();
+            //==========================
+            // Seed roles 
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                string[] roleNames = { "Worker", "Admin", "Client" };
+                foreach (var roleName in roleNames)
+                {
+                    if (!await roleManager.RoleExistsAsync(roleName))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(roleName));
+                    }
+                }
+            }
+            //=============================
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -1,6 +1,7 @@
 ﻿using Graduation_Project.DTO.SparePartsDto;
 using Graduation_Project.Models;
 using Graduation_Project.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,8 @@ namespace Graduation_Project.Controllers
         {
             _sparePartsRepository = spareParts;   
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddSpareParts")]
         public IActionResult AddNewSparePart([FromForm]SparePartsDto partsDto)
         {
@@ -25,6 +28,7 @@ namespace Graduation_Project.Controllers
             }
             return BadRequest(ModelState);
         }
+        [Authorize(Roles = "Client,Admin")]
         [HttpGet("ListAllSpareParts")]
         public IActionResult GetAll()
         {

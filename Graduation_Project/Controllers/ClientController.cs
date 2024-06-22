@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Graduation_Project.DTO.LogInDto;
+using Microsoft.AspNetCore.Authorization;
+using Graduation_Project.DTO.PasswordDto;
 
 namespace Graduation_Project.Controllers
 {
@@ -25,7 +27,7 @@ namespace Graduation_Project.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _clientRepository.Add(client);
+            var result = await _clientRepository.Register(client);
             if (!result.Succeeded)
             {
                 foreach(var error in result.Errors)
@@ -54,6 +56,7 @@ namespace Graduation_Project.Controllers
             return BadRequest(ModelState);  
         }
         //edit profile
+        [Authorize(Roles = "Client")]
         [HttpPut("Edit_Profile")]
         public IActionResult Edit(int id,[FromForm]ClientEditProfileDto client)
         {
@@ -65,6 +68,27 @@ namespace Graduation_Project.Controllers
             return BadRequest(ModelState);
         }
         //change password
+        [Authorize(Roles ="Client")]
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromForm] ChangePassword _user)
+        {
+            var result =await _clientRepository.ChangePassword(_user);
+            if (result.Succeeded)
+            {
+
+                return Ok("Password  Change Succeeded");
+            }
+            else
+            {
+                var Errors = string.Empty;
+                foreach (var error in result.Errors)
+                {
+                    Errors += $"{error.Description}  +  ";
+                }
+                return BadRequest(Errors);
+            }
+            return Unauthorized();
+        }
         //forget password
     }
 }

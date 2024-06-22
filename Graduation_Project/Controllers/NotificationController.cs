@@ -1,5 +1,6 @@
 ﻿using Graduation_Project.DTO.NotificationsDto;
 using Graduation_Project.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +15,15 @@ namespace Graduation_Project.Controllers
         {
             _notificationRepository = notification;    
         }
-        //error in these actIOns
+        
+        [Authorize(Roles = "Client")]
         [HttpGet("SendNotificationToClient")]
         public IActionResult SendToClient( int id)
         {
             List<NotificationsDto> clientNoti=_notificationRepository.ToClient(id);
             return Ok(clientNoti);
         }
+        [Authorize(Roles = "Worker")]
         [HttpGet("SendNotificationToWorker")]
         public IActionResult SendToWorker(int id)
         {
