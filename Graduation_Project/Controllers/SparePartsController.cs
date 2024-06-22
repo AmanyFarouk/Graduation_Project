@@ -28,7 +28,7 @@ namespace Graduation_Project.Controllers
             }
             return BadRequest(ModelState);
         }
-        [Authorize(Roles = "Client,Admin")]
+        //[Authorize(Roles = "Client,Admin")]
         [HttpGet("ListAllSpareParts")]
         public IActionResult GetAll()
         {

@@ -90,5 +90,17 @@ namespace Graduation_Project.Controllers
             return Unauthorized();
         }
         //forget password
+
+        //LogOut
+        [Authorize]
+        [HttpPost("LogOut")]
+        [Authorize(Roles ="Client")]
+        public async Task<IActionResult> LogOut()
+        {
+            var result = await _clientRepository.Logout();
+            if (result == "User Logged Out Successfully")
+                return Ok(result);
+            return BadRequest(result);
+        }
     }
 }

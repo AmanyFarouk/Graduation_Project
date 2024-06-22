@@ -22,15 +22,20 @@ namespace Graduation_Project.Repository
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration config;
         private readonly ILogger<ClientRepository> _logger;
-       // private readonly IAuthRepository _authRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private SignInManager<ApplicationUser> _signInManager;
+        // private readonly IAuthRepository _authRepository;
         public ClientRepository(Context context,IMapper _mapper,UserManager<ApplicationUser>_userManager,
-            IConfiguration config, ILogger<ClientRepository> _logger)//, IAuthRepository _authRepository)
+            IConfiguration config, ILogger<ClientRepository> _logger
+            , IHttpContextAccessor _contextAccessor, SignInManager<ApplicationUser> _signInManager)//, IAuthRepository _authRepository)
         {
             this.context = context;
             this._mapper = _mapper;
             this._userManager = _userManager;
             this.config = config;
             this._logger = _logger;
+            this._contextAccessor= _contextAccessor;
+            this._signInManager = _signInManager;
            // this._authRepository = _authRepository;
         }
         //register
@@ -157,6 +162,17 @@ namespace Graduation_Project.Repository
                 return result;
             }
             return null;
+        }
+        public async Task<string> Logout()
+        {
+            var currentUser = _contextAccessor.HttpContext.User;
+           if(await _userManager.GetUserAsync(currentUser) == null)
+            {
+                return "User Not Found";
+            }
+            await _signInManager.SignOutAsync();
+
+            return "User Logged Out Successfully";
         }
 
     }
