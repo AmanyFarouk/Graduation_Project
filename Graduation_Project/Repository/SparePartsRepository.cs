@@ -14,7 +14,7 @@ namespace Graduation_Project.Repository
            this.context = context;
            this._mapper = _mapper;
         }
-        public void AddSparePart(SparePartsDto _part)
+        public void AddSparePart(AddPartDto _part, IFormFile imageFile)
         {
            // SpareParts part=_mapper.Map<SpareParts>(_part);
             SpareParts part=new SpareParts();
@@ -22,6 +22,22 @@ namespace Graduation_Project.Repository
             part.Name = _part.Name;
             part.Price = _part.Price;
             part.ClientId = 2;
+
+            //image 
+            if (imageFile != null)
+            {
+                var fileName = Path.GetFileName(imageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(stream);
+                }
+
+                part.Image = "/images/" + fileName; // Store the relative path
+            }
+
+
             context.SpareParts.Add(part);
 
             context.SaveChanges();
@@ -39,6 +55,7 @@ namespace Graduation_Project.Repository
                 partDto.ID = part.ID;
                 partDto.Name = part.Name;
                 partDto.Price = part.Price;
+                partDto.Image = part.Image;
                 partsList.Add(partDto);
                 
             }

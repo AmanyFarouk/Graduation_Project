@@ -17,13 +17,13 @@ namespace Graduation_Project.Controllers
             _sparePartsRepository = spareParts;   
         }
 
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         [HttpPost("AddSpareParts")]
-        public IActionResult AddNewSparePart([FromForm]SparePartsDto partsDto)
+        public IActionResult AddNewSparePart([FromForm] AddPartDto partsDto, IFormFile imageFile)
         {
             if(ModelState.IsValid)
             {
-               _sparePartsRepository.AddSparePart(partsDto);
+               _sparePartsRepository.AddSparePart(partsDto,imageFile);
                 return Ok("Spare Part Added Successfully.");
             }
             return BadRequest(ModelState);

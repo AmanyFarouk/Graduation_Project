@@ -17,8 +17,6 @@ namespace Graduation_Project.DTO.OrderDto
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required]
-        public string ClientName { get; set; }
         [Required(ErrorMessage = "Date is required.")]
         public string Date { get; set; }
 
@@ -31,9 +29,9 @@ namespace Graduation_Project.DTO.OrderDto
         public string Phone { get; set; }
         [Required(ErrorMessage = "Problem Description is required.")]
         public string Problem { get; set; }
-        [Required]
-        public TypeOfOrder typeOfOrder { get; set; }
-        [Required]
-        public TypeOfPayment typeOfPayment { get; set; }
+       // [Required]
+       // public TypeOfOrder typeOfOrder { get; set; }
+       // [Required]
+       // public TypeOfPayment typeOfPayment { get; set; }
     }
 }

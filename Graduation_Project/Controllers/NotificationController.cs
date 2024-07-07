@@ -23,7 +23,7 @@ namespace Graduation_Project.Controllers
             List<NotificationsDto> clientNoti=_notificationRepository.ToClient(id);
             return Ok(clientNoti);
         }
-        [Authorize(Roles = "Worker")]
+      //  [Authorize(Roles = "Worker")]
         [HttpGet("SendNotificationToWorker")]
         public IActionResult SendToWorker(int id)
         {

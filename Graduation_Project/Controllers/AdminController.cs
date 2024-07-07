@@ -19,7 +19,7 @@ namespace Graduation_Project.Controllers
             adminRepository = _admin;
         }
         //Add new Admin
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         [HttpPost("AddAdmin")]//api/Admin/AddAdmin
         public IActionResult AddAdmin([FromForm] AdminDto Admin)
         {
@@ -30,6 +30,7 @@ namespace Graduation_Project.Controllers
                 return Ok("Add Admin Done");
             }
             return BadRequest(ModelState);
+
         }
         //[HttpPost("AdminLogIn")]
         //public async IActionResult LogIn([FromForm] LogInUserDto _userDto)

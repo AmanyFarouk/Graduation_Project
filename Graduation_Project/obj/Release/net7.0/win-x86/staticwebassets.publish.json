@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "Hash": "hIquYmI74WElVOleNGWDClpXcoUjZqZBYuFBsiCIpwQ=",
+  "Source": "Graduation_Project",
+  "BasePath": "_content/Graduation_Project",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Graduation_Project\\wwwroot",
+      "Source": "Graduation_Project",
+      "ContentRoot": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\",
+      "BasePath": "_content/Graduation_Project",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\images\\Caliper.jpg",
+      "SourceId": "Graduation_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\",
+      "BasePath": "_content/Graduation_Project",
+      "RelativePath": "images/Caliper.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Caliper.jpg"
+    },
+    {
+      "Identity": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\images\\Screwdriver 1.jpg",
+      "SourceId": "Graduation_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\",
+      "BasePath": "_content/Graduation_Project",
+      "RelativePath": "images/Screwdriver 1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Screwdriver 1.jpg"
+    }
+  ]
+}

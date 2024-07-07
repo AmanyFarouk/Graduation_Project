@@ -83,3 +83,4 @@ D:\Grad_project\API\Graduation_Project\Graduation_Project\obj\Debug\net7.0\refin
 D:\Grad_project\API\Graduation_Project\Graduation_Project\obj\Debug\net7.0\Graduation_Project.pdb
 D:\Grad_project\API\Graduation_Project\Graduation_Project\obj\Debug\net7.0\Graduation_Project.genruntimeconfig.cache
 D:\Grad_project\API\Graduation_Project\Graduation_Project\obj\Debug\net7.0\ref\Graduation_Project.dll
+D:\Grad_project\API\Graduation_Project\Graduation_Project\bin\Debug\net7.0\Graduation_Project.staticwebassets.runtime.json

@@ -84,9 +84,10 @@ namespace Graduation_Project.Repository
 
         }
         //try map using automapper
-        public void Edit(int id, ClientEditProfileDto _client)
+        public void Edit( ClientEditProfileDto _client)
         {
-            Client client =context.Clients.FirstOrDefault(c=>c.ID == id);
+            var email= _client.Email;
+            Client client =context.Clients.FirstOrDefault(c=>c.Email==email);
 
             //_mapper.Map<Client>(_client);
             //_mapper.Map(_client, client);
@@ -102,6 +103,7 @@ namespace Graduation_Project.Repository
         {
             _logger.LogInformation("Attempting to log in user with email {Email}", _userDto.Email);
                 ApplicationUser user = await _userManager.FindByEmailAsync(_userDto.Email);
+            var clientID=context.Clients.FirstOrDefault(c=>c.Email==_userDto.Email).ID;
             if (user != null)
             {
                 bool found = await _userManager.CheckPasswordAsync(user, _userDto.Password);
@@ -131,6 +133,7 @@ namespace Graduation_Project.Repository
                         signingCredentials: signingCred
                         );
                     var result = new {
+                        ID = clientID,
                         DisplayName = user.FirstName + " " + user.LastName,
                         token = new JwtSecurityTokenHandler().WriteToken(myToken),
                         expiration = myToken.ValidTo

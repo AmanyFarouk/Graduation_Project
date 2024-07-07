@@ -58,11 +58,11 @@ namespace Graduation_Project.Controllers
         //edit profile
         [Authorize(Roles = "Client")]
         [HttpPut("Edit_Profile")]
-        public IActionResult Edit(int id,[FromForm]ClientEditProfileDto client)
+        public IActionResult Edit([FromForm]ClientEditProfileDto client)
         {
             if(ModelState.IsValid)
             {
-                _clientRepository.Edit(id,client);
+                _clientRepository.Edit(client);
                 return Ok("Profile Updated");
             }
             return BadRequest(ModelState);

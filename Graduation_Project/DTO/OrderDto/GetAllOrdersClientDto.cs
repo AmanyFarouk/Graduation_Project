@@ -21,9 +21,9 @@ namespace Graduation_Project.DTO.OrderDto
         public string Phone { get; set; }
         [Required(ErrorMessage = "Problem Description is required.")]
         public string Problem { get; set; }
-        [Required]
-        public TypeOfOrder typeOfOrder { get; set; }
-        [Required]
-        public TypeOfPayment typeOfPayment { get; set; }
+        //[Required]
+        //public TypeOfOrder typeOfOrder { get; set; }
+        //[Required]
+        //public TypeOfPayment typeOfPayment { get; set; }
     }
 }

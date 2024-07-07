@@ -23,7 +23,12 @@ namespace Graduation_Project.Models
         public DbSet<SpareParts> SpareParts { get; set; }
         public DbSet<Worker> Workers { get; set; }
 
-        
-        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Admin>().HasData(
+       new Admin {ID=-1, Name = "ahmed mohamed", Phone = "01007889901", Email = "AHmed22@gmail.com", Password = "AHmed22@gmail.com" }
+       );
+        }
+        }
     }
-}

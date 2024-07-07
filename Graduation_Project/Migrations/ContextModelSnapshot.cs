@@ -49,6 +49,16 @@ namespace Graduation_Project.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = -1,
+                            Email = "AHmed22@gmail.com",
+                            Name = "ahmed mohamed",
+                            Password = "AHmed22@gmail.com",
+                            Phone = "01007889901"
+                        });
                 });
 
             modelBuilder.Entity("Graduation_Project.Models.ApplicationUser", b =>
@@ -278,9 +288,8 @@ namespace Graduation_Project.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<string>("WalletPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<short?>("confirm")
+                        .HasColumnType("smallint");
 
                     b.HasKey("ID");
 
@@ -299,6 +308,9 @@ namespace Graduation_Project.Migrations
 
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

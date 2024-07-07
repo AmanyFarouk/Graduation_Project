@@ -21,25 +21,23 @@ namespace Graduation_Project.Repository
         {
             Order newOrder= new Order();
             newOrder.ID= orderDto.ID;
-            List<string> clientName= orderDto.ClientName.Split(" ").ToList();
-            var clientId = context.Clients.FirstOrDefault(c => c.FName == clientName[0] 
-            && c.LName == clientName[1]).ID;
+            var clientId = context.Clients.FirstOrDefault(c => c.Phone==orderDto.Phone).ID;
             newOrder.ClientId= clientId;
-            newOrder.WorkerId = 7;
+            newOrder.WorkerId = context.Workers.FirstOrDefault().ID;
             newOrder.Date = orderDto.Date;
             newOrder.Time = orderDto.Time;
             newOrder.ClientAddress= orderDto.ClientAddress;
             newOrder.Phone = orderDto.Phone;
             newOrder.Problem= orderDto.Problem;
-            newOrder.typeOfOrder = (Models.TypeOfOrder)orderDto.typeOfOrder;
-            newOrder.typeOfPayment = (Models.TypeOfPayment)orderDto.typeOfPayment;
-            newOrder.AdminId = 1;
+            newOrder.typeOfOrder = 0;
+            newOrder.typeOfPayment = 0;
+            newOrder.AdminId =  context.Admins.FirstOrDefault().ID;
             context.Orders.Add(newOrder);
             context.SaveChanges();
             //Send notification to client
             Notifications ClientNoti = new Notifications();
             ClientNoti.ClientId = newOrder.ClientId;
-            string msgC = "Order Done , The Worker will arrive soon.";
+            string msgC = "Thank you for your order Your Order is now on the waiting list";//"Order Done , The Worker will arrive soon.";
             ClientNoti.Messege = msgC;
             context.Notifications.Add(ClientNoti);
             context.SaveChanges();
@@ -94,8 +92,8 @@ namespace Graduation_Project.Repository
                 orderDto.ClientAddress= order.ClientAddress;
                 orderDto.Phone = order.Phone;
                 orderDto.Problem = order.Problem;
-                orderDto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
-                orderDto.typeOfPayment= (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
+               // orderDto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
+                //orderDto.typeOfPayment= (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
                 orderDto.AdminName = context.Admins.FirstOrDefault(a => a.ID == order.AdminId).Name;
                 ordersDto.Add(orderDto);    
             }
@@ -109,16 +107,15 @@ namespace Graduation_Project.Repository
             if (order == null)
                 return null;
             orderdto.ID = order.ID;
-            string clientFName = context.Clients.FirstOrDefault(a => a.ID == order.ClientId).FName;
-            string clientLName = context.Clients.FirstOrDefault(a => a.ID == order.ClientId).LName;
-            orderdto.ClientName = clientFName + " " + clientLName;
+            //string clientFName = context.Clients.FirstOrDefault(a => a.ID == order.ClientId).FName;
+            //string clientLName = context.Clients.FirstOrDefault(a => a.ID == order.ClientId).LName;
             orderdto.Date = order.Date;
             orderdto.Time= order.Time;
             orderdto.ClientAddress = order.ClientAddress;
             orderdto.Phone = order.Phone;
             orderdto.Problem = order.Problem;
-            orderdto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
-            orderdto.typeOfPayment= (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
+            //orderdto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
+            //orderdto.typeOfPayment= (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
             return orderdto;
         }
         public List<GetAllOrdersClientDto> GetOrdersById(int id)
@@ -138,8 +135,8 @@ namespace Graduation_Project.Repository
                 orderClientDto.ClientAddress= order.ClientAddress;
                 orderClientDto.Phone = order.Phone;
                 orderClientDto.Problem = order.Problem;
-                orderClientDto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
-                orderClientDto.typeOfPayment = (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
+                //orderClientDto.typeOfOrder = (DTO.OrderDto.TypeOfOrder)order.typeOfOrder;
+                //orderClientDto.typeOfPayment = (DTO.OrderDto.TypeOfPayment)order.typeOfPayment;
                 ordersDto.Add(orderClientDto);
                 
             }    
@@ -149,17 +146,15 @@ namespace Graduation_Project.Repository
         public void EditOrder(int id, OrderClientDto orderDto)
         {
             Order Order = context.Orders.FirstOrDefault(o => o.ID == id);
-            List<string> clientName = orderDto.ClientName.Split(" ").ToList();
-            var clientId = context.Clients.FirstOrDefault(c => c.FName == clientName[0]
-            && c.LName == clientName[1]).ID;
+            var clientId = context.Clients.FirstOrDefault(c => c.Phone==orderDto.Phone).ID;
             Order.ClientId = clientId;
             Order.Date = orderDto.Date;
             Order.Time = orderDto.Time;
             Order.ClientAddress = orderDto.ClientAddress;
             Order.Phone = orderDto.Phone;
             Order.Problem = orderDto.Problem;
-            Order.typeOfOrder = (Models.TypeOfOrder)orderDto.typeOfOrder;
-            Order.typeOfPayment = (Models.TypeOfPayment)orderDto.typeOfPayment;
+            Order.typeOfOrder = 0;
+            Order.typeOfPayment = 0;
             context.SaveChanges();
         }
         public void Delete(int id)

@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\images\\Caliper.jpg",
+      "PackagePath": "staticwebassets\\images\\Caliper.jpg"
+    },
+    {
+      "Id": "D:\\Grad_project\\API\\Graduation_Project\\Graduation_Project\\wwwroot\\images\\Screwdriver 1.jpg",
+      "PackagePath": "staticwebassets\\images\\Screwdriver 1.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Graduation_Project.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.Graduation_Project.props",
+      "PackagePath": "build\\Graduation_Project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.Graduation_Project.props",
+      "PackagePath": "buildMultiTargeting\\Graduation_Project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.Graduation_Project.props",
+      "PackagePath": "buildTransitive\\Graduation_Project.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

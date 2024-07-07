@@ -17,8 +17,8 @@ namespace Graduation_Project.DTO.OrderDto
             public string ClientAddress { get; set; }
             public string Phone { get; set; }
             public string Problem { get; set; }
-            public TypeOfOrder typeOfOrder { get; set; }
-            public TypeOfPayment typeOfPayment { get; set; }
+            //public TypeOfOrder typeOfOrder { get; set; }
+            //public TypeOfPayment typeOfPayment { get; set; }
             public string AdminName { get; set; }
         }
 }

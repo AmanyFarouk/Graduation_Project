@@ -28,7 +28,7 @@ namespace Graduation_Project.Controllers
             return BadRequest(ModelState);
 
         }
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         //edit order admin  
         [HttpPut("AddOrderByAdmin")]
         public IActionResult AdminAddOrder(int id, [FromForm] OrderAdminDto orderAdmin)
@@ -40,7 +40,8 @@ namespace Graduation_Project.Controllers
             }
             return BadRequest(ModelState);
         }
-        [Authorize(Roles = "Admin")]
+     //   [Authorize(Roles = "Admin")]
+       // [AllowAnonymous]
         //get all orders
         [HttpGet("GetAllOrdersToAdmin")]
         public IActionResult GetAllOrders()
@@ -48,7 +49,7 @@ namespace Graduation_Project.Controllers
             List<OrderDto> orders = _orderRepository.GetAll();
             return Ok(orders);
         }
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         //get order by id
         [HttpGet("GetOrderById")]
         public IActionResult GetOrder(int id)

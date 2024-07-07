@@ -12,5 +12,6 @@ namespace Graduation_Project.DTO.SparePartsDto
         public string Name { get; set; }
         [Required]
         public int Price { get; set; }
+        public string? Image { get; set; }
     }
 }

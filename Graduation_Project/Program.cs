@@ -25,10 +25,17 @@ namespace Graduation_Project
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddCors();
             // Add services to the container.
+            //builder.Services.AddDbContext<Context>(options =>
+            //{
+            //    // options.UseSqlServer("Data Source=DESKTOP-9E8RQR1;Initial Catalog=GraduationProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
+            //    // options.UseSqlServer("Data Source=SQL8006.site4now.net;Initial Catalog=db_aaa39b_amanydb22;User Id=db_aaa39b_amanydb22_admin;Password=AmanyDB22");                                      
+            //    // options.UseSqlServer("Server=db5930.public.databaseasp.net; Database=db5930; User Id=db5930; Password=e?8W@Zj5L3!i; Encrypt=False; MultipleActiveResultSets=True;");                                      
+            //    options.UseSqlServer("workstation id=AmanySala7lyDB.mssql.somee.com;packet size=4096;user id=amanyfarouk22_SQLLogin_1;pwd=ietyt4zu2m;data source=AmanySala7lyDB.mssql.somee.com;persist security info=False;initial catalog=AmanySala7lyDB;TrustServerCertificate=True");                                      
+            //});
+            var connectionString = builder.Configuration.GetConnectionString("Context");
             builder.Services.AddDbContext<Context>(options =>
-            {
-                options.UseSqlServer("Data Source=DESKTOP-9E8RQR1;Initial Catalog=GraduationProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
-            });
+            options.UseSqlServer(connectionString));
+            //==================================
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
             //====================
@@ -109,10 +116,23 @@ namespace Graduation_Project
                 });
             });
 
-        
-        //=====================
-        //logging
-        builder.Logging.ClearProviders();
+            //=====================
+            //add cors
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("http://localhost:4200", "http://localhost:8080")
+            //                   .AllowAnyHeader()
+            //                   .AllowAnyMethod();
+            //        });
+            //});
+            builder.Services.AddCors();
+         
+            //=====================
+            //logging
+            builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
             //=======================
@@ -148,16 +168,20 @@ namespace Graduation_Project
                 }
             }
             //=============================
-
+            //=============================
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
             app.UseAuthentication();
             app.UseAuthorization();
-
+            //to enable cors
+            app.UseCors(c =>
+            c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //for image
+            app.UseStaticFiles();
 
             app.MapControllers();
 

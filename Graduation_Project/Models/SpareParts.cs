@@ -12,6 +12,7 @@ namespace Graduation_Project.Models
         public string Name { get; set; }
         [Required]
         public int Price { get; set; }
+        public string? Image { get; set; }
 
         [ForeignKey("Client")]
         public int ?ClientId { get; set; }
