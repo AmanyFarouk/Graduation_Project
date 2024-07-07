@@ -28,9 +28,6 @@ namespace Graduation_Project
             //builder.Services.AddDbContext<Context>(options =>
             //{
             //    // options.UseSqlServer("Data Source=DESKTOP-9E8RQR1;Initial Catalog=GraduationProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;");
-            //    // options.UseSqlServer("Data Source=SQL8006.site4now.net;Initial Catalog=db_aaa39b_amanydb22;User Id=db_aaa39b_amanydb22_admin;Password=AmanyDB22");                                      
-            //    // options.UseSqlServer("Server=db5930.public.databaseasp.net; Database=db5930; User Id=db5930; Password=e?8W@Zj5L3!i; Encrypt=False; MultipleActiveResultSets=True;");                                      
-            //    options.UseSqlServer("workstation id=AmanySala7lyDB.mssql.somee.com;packet size=4096;user id=amanyfarouk22_SQLLogin_1;pwd=ietyt4zu2m;data source=AmanySala7lyDB.mssql.somee.com;persist security info=False;initial catalog=AmanySala7lyDB;TrustServerCertificate=True");                                      
             //});
             var connectionString = builder.Configuration.GetConnectionString("Context");
             builder.Services.AddDbContext<Context>(options =>
@@ -71,8 +68,8 @@ namespace Graduation_Project
                 options.AddPolicy("WorkerPolicy", policy => policy.RequireRole("Worker"));
             });
             //========================================
-            // To Enable authorization using Swagger (JWT)  
-            // ==========================
+            //Â ToÂ EnableÂ authorizationÂ usingÂ SwaggerÂ (JWT)Â Â 
+            //Â ==========================
 
             //==========================
             builder.Services.AddEndpointsApiExplorer();
@@ -82,15 +79,15 @@ namespace Graduation_Project
             });
             builder.Services.AddSwaggerGen(swagger =>
             {
-                //This is to generate the Default UI of Swagger Documentation    
+                //ThisÂ isÂ toÂ generateÂ theÂ DefaultÂ UIÂ ofÂ SwaggerÂ DocumentationÂ Â Â Â 
                 swagger.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "ASP.NET 5 Web API",
+                    Title = "ASP.NETÂ 5Â WebÂ API",
                     Description = " ITI Projrcy"
                 });
 
-                // To Enable authorization using Swagger (JWT)    
+                //Â ToÂ EnableÂ authorizationÂ usingÂ SwaggerÂ (JWT)Â Â Â Â 
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -98,7 +95,7 @@ namespace Graduation_Project
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+                    Description = "EnterÂ 'Bearer'Â [space]Â andÂ thenÂ yourÂ validÂ tokenÂ inÂ theÂ textÂ inputÂ below.\r\n\r\nExample:Â \"BearerÂ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
                 });
                 swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
